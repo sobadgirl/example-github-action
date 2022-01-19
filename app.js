@@ -8,12 +8,12 @@ module.exports = (app) => {
     context.log("Received Issues event: ", context.issues())
     app.log("App Log, Received Issues event: ", context.issues())
     return context.octokit.issues.createComment(
-      context.issue({ body: "Hello, World!" })
+      context.issue({ body: "Yay, Hello, World! Mother Fucker hhhh." })
     );
   });
 
 
-  app.on(["pulls.opened", "pulls.reopened"], async (context) => {
+  app.on(["pull_request.opened", "pull_request.reopened"], async (context) => {
     context.log("Received PR event: ", context.pullRequest())
     let pr = await context.octokit.rest.pulls.get(context.pullRequest())
 
