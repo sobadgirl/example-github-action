@@ -17,7 +17,7 @@ module.exports = (app) => {
     context.log("Received PR event: ", context.pullRequest())
     let pr = await context.octokit.rest.pulls.get(context.pullRequest())
 
-    context.log("Pr SHA is:", pr.head.sha)
+    context.log("Pr SHA is:", pr.head)
 
     let checkRun = await context.octokit.checks.create(context.repo({
       name: "PR Format Checks",
