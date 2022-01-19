@@ -5,6 +5,8 @@ module.exports = (app) => {
   app.log("Yay! The app was loaded!");
 
   app.on(["issues.opened"], async (context) => {
+    context.log("Received Issues event: ", context.issues())
+    app.log("App Log, Received Issues event: ", context.issues())
     return context.octokit.issues.createComment(
       context.issue({ body: "Hello, World!" })
     );
