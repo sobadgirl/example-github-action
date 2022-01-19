@@ -2,7 +2,7 @@
  * @param {import('probot').Probot} app
  */
 module.exports = (app) => {
-  app.log("Yay! The app was loaded!");
+  app.log("Yay! The app was loaded! Mother Fucker");
 
   app.on(["issues.opened"], async (context) => {
     context.log("Received Issues event: ", context.issues())
