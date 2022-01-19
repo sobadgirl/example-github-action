@@ -2,7 +2,7 @@
  * @param {import('probot').Probot} app
  */
 module.exports = (app) => {
-  app.log("Yay! The app was loaded! ");
+  app.log("Yay! The app was loaded! hhh");
 
   app.on(["issues.opened"], async (context) => {
     return context.octokit.issues.createComment(
@@ -27,7 +27,7 @@ module.exports = (app) => {
 
     let checkRun = await context.octokit.checks.create(context.repo({
       name: "PR Format Checks",
-      head_sha: "785e790500879c6889fef65b034cdbe9556d28f3",
+      head_sha: pr.head.sha,
       // status: "in_progress",
       conclusion,
     }))
