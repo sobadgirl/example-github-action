@@ -5,8 +5,8 @@ module.exports = (app) => {
   app.log("Yay! The app was loaded! Mother Fucker");
 
   app.on(["issues.opened"], async (context) => {
-    context.log("Received Issues event: ", context.issues())
-    app.log("App Log, Received Issues event: ", context.issues())
+    context.log("Received Issues event: ", context.issue())
+    app.log("App Log, Received Issues event: ", context.issue())
     return context.octokit.issues.createComment(
       context.issue({ body: "Yay, Hello, World! Mother Fucker hhhh." })
     );
