@@ -19300,9 +19300,11 @@ function getBasicNodeMethods() {
  * @param {import('probot').Probot} app
  */
 module.exports = (app) => {
-  app.log("Yay! The app was loaded! hhh");
+  app.log("Yay! The app was loaded! hhh, v0.0.1");
 
   app.on(["issues.opened"], async (context) => {
+    app.log("On event issues")
+    context.log("Context, On event issues")
     return context.octokit.issues.createComment(
       context.issue({ body: "Yay, Hello, World! hhhh." })
     );
@@ -19310,6 +19312,7 @@ module.exports = (app) => {
 
 
   app.on(["pull_request.opened", "pull_request.edited", "pull_request.reopened"], async (context) => {
+    app.log("On Event PR!!")
     let pr = await context.octokit.pulls.get(context.pullRequest())
     pr = context.payload.pull_request
 
@@ -19323,7 +19326,9 @@ module.exports = (app) => {
       conclusion = "skipped"
     }
 
-    let checkRun = await context.octokit.checks.create(context.repo({
+    app.log("Conclusion is" + conclusion)
+
+    return context.octokit.checks.create(context.repo({
       name: "PR Format Checks",
       head_sha: pr.head.sha,
       // status: "in_progress",
