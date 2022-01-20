@@ -19321,7 +19321,7 @@ module.exports = (app) => {
 
     app.log("Conclusion is " + conclusion)
     if (conclusion === "failure") {
-      throw "PR Title check failure"
+      throw ["PR Title check failure"]
     }
   });
 }
