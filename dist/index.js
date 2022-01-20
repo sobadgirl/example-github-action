@@ -10539,7 +10539,7 @@ exports.RequestError = RequestError;
 const { run } = __webpack_require__(295);
 const app = __webpack_require__(204);
 
-run(app).cache(error => {
+run(app).catch(error => {
   console.error(error)
   process.exit(1);
 });
