@@ -10540,7 +10540,7 @@ const { run } = __webpack_require__(295);
 const app = __webpack_require__(204);
 
 run(app).catch(error => {
-  throw error.message;
+  throw "GOT" + error.message;
   process.exit(1);
 });
 
