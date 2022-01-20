@@ -31,12 +31,12 @@ module.exports = (app) => {
 
     app.log("Conclusion is" + conclusion)
 
-    let checkRun = context.octokit.checks.create(context.repo({
+    let checkRun = await context.octokit.checks.create(context.repo({
       name: "PR Format Checks",
       head_sha: pr.head.sha,
       // status: "in_progress",
       conclusion,
     }))
-    context.log("checkRun.id is: ", checkRun)
+    context.log("checkRun.id is: " + JSON.stringify(checkRun) + "Nice!!!")
   });
 }
