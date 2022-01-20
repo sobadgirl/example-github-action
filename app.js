@@ -1,6 +1,9 @@
 /**
  * @param {import('probot').Probot} app
  */
+const marked = require('marked');
+const check = require('./src/checks');
+
 module.exports = (app) => {
   app.log("\n\n\nPR Format Checker loaded, put 'URGENT' in PR title to skip this check!\n\n\n");
 
@@ -14,13 +17,13 @@ module.exports = (app) => {
       return
     }
 
-    // do your checks
-    // here only check if "SUCCESS" in pr title
-    let conclusion = pr.title.indexOf("SUCCESS") >= 0 ? "success" : "failure"
-
-    app.log("Conclusion is " + conclusion)
-    if (conclusion === "failure") {
-      throw ["PR Title check failure"]
+    const checkItems = ["lineChanges", "jiraTitle", "body", "tasks"]
+    let checkResults = check(pr, checkItems)
+    checkResults.forEach((checkR, index) => {
+      context.log(`[${checkItems[index]}]: ${checkR}`)
+    })
+    if (checkResults.filter(cr => cr === false).length !== 0) {
+      throw ["PR Format check failure, please check!"]
     }
   });
 }
