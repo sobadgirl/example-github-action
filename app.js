@@ -1,7 +1,6 @@
 /**
  * @param {import('probot').Probot} app
  */
-const marked = require('marked');
 const check = require('./src/checks');
 
 module.exports = (app) => {

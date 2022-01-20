@@ -3,12 +3,12 @@ const marked = require('marked');  // try demo https://marked.js.org/demo/
 let checkers = {
     lineChanges: pr => {
         // changes should less than 400 lines
-        return pr.base.additions + pr.base.deletions <= 400
+        return pr.additions + pr.deletions <= 400
     },
     jiraTitle: pr => {
         // pr title should include jira link with "[]" wrapped. leave any string if no jira link can provide. 
         if (!pr) return false;
-        return pr.title[0] === "[" && pr.title.indexOf("]") !== -1
+        return pr.title.trim()[0] === "[" && pr.title.indexOf("]") !== -1
     },
     body: pr => {
         // pr body should contains these headers 
@@ -16,8 +16,8 @@ let checkers = {
         if (!pr.body) return false;
         const tokens = marked.lexer(pr.body)
         const headers = tokens.filter(token => token.type === "heading" && token.depth <= 3).map(token => token.text)
-        headers = new Set(headers)
-        return requireHeaders.filter(header => headers.has(header)).length === 0
+        const headersSet = new Set(headers)
+        return requireHeaders.filter(header => !headersSet.has(header)).length === 0
     },
     tasks: pr => {
         // all tasks should completed in body
