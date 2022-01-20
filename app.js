@@ -2,7 +2,7 @@
  * @param {import('probot').Probot} app
  */
 module.exports = (app) => {
-  app.log("PR Format Checker loaded, put 'URGENT' in PR title to skip this check!");
+  app.log("\n\n\nPR Format Checker loaded, put 'URGENT' in PR title to skip this check!\n\n\n");
 
   app.on(["pull_request.opened", "pull_request.edited", "pull_request.reopened"], async (context) => {
     let pr = await context.octokit.pulls.get(context.pullRequest())
@@ -20,7 +20,7 @@ module.exports = (app) => {
 
     app.log("Conclusion is " + conclusion)
     if (conclusion === "failure") {
-      throw "PR Title failure"
+      throw "PR Title check failure"
     }
   });
 }
