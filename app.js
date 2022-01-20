@@ -4,12 +4,13 @@
 module.exports = (app) => {
   app.log("Yay! The app was loaded! hhh, v0.0.1");
 
-  app.on(["issues.opened"], async (context) => {
+  app.on(["issues.opened", "issues.reopened"], async (context) => {
     app.log("On event issues")
     context.log("Context, On event issues")
-    return context.octokit.issues.createComment(
-      context.issue({ body: "Yay, Hello, World! hhhh." })
+    let comment = context.octokit.issues.createComment(
+      context.issue({ body: "Yay, Hello, World! hhhh. from local" })
     );
+    context.log("Comment is: ", comment)
   });
 
 
@@ -30,11 +31,12 @@ module.exports = (app) => {
 
     app.log("Conclusion is" + conclusion)
 
-    return context.octokit.checks.create(context.repo({
+    let checkRun = context.octokit.checks.create(context.repo({
       name: "PR Format Checks",
       head_sha: pr.head.sha,
       // status: "in_progress",
       conclusion,
     }))
+    context.log("checkRun.id is: ", checkRun)
   });
 }
