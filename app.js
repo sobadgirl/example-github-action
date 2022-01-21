@@ -4,7 +4,7 @@
 const check = require('./src/checks');
 
 module.exports = (app) => {
-  app.log("\n\n\nPR Format Checker loaded, put 'URGENT' in PR title to skip this check!\n\n\n");
+  app.log("\n\n\nPR Format Checker loaded, put *** 'URGENT' *** in PR title to skip this check!\n\n\n");
 
   app.on(["pull_request.opened", "pull_request.edited", "pull_request.reopened"], async (context) => {
     let pr = await context.octokit.pulls.get(context.pullRequest())

@@ -10626,6 +10626,8 @@ const core = __webpack_require__(470);
 const { run } = __webpack_require__(295);
 const app = __webpack_require__(204);
 
+core.setFailed("手动失败!!")
+
 run(app).catch(error => {
   console.log(error)
   core.setFailed(error.message)
@@ -19856,7 +19858,7 @@ function getBasicNodeMethods() {
 const check = __webpack_require__(240);
 
 module.exports = (app) => {
-  app.log("\n\n\nPR Format Checker loaded, put 'URGENT' in PR title to skip this check!\n\n\n");
+  app.log("\n\n\nPR Format Checker loaded, put *** 'URGENT' *** in PR title to skip this check!\n\n\n");
 
   app.on(["pull_request.opened", "pull_request.edited", "pull_request.reopened"], async (context) => {
     let pr = await context.octokit.pulls.get(context.pullRequest())
