@@ -10626,10 +10626,10 @@ const core = __webpack_require__(470);
 const { run } = __webpack_require__(295);
 const app = __webpack_require__(204);
 
-core.setFailed("手动失败!!")
 
 run(app).catch(error => {
-  console.log(error)
+  console.log("Yes, i catch the exception!")
+  core.setFailed("手动失败!!")
   core.setFailed(error.message)
 });
 
